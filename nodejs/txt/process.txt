@@ -1,0 +1,8 @@
+process.env.key 
+process.config({path:"../path"})
+
+process.argv ==>[nodejs_path,current_NodeFile_path]
+eg:- 
+const [arg1,arg2,a,b]=process.argv
+console.log(arg1,arg2,a,b)  
+===>node test.js pondu chintu :- nodepath,currentfilepath,pondu,chintu

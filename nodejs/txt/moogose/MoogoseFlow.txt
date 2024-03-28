@@ -1,0 +1,34 @@
+//moogose connection :-
+1.connect the nodejs and moogoose  ===>refer from:- node-moongo-connection.txt 
+  eg:- let promise=mongoose.connect(connectionStr, { useNewUrlParser: true, useUnifiedTopology: true })
+--------------------------------------------------------------------------------------------------------------------------
+//using moogoseConnection to design the schema :-
+2.Next Design the DB JSON Document plan structure ===>refer from :-schema.txt
+  Schema DataTypes                                ===>refer from :-SchemaDtaTypes.txt
+  
+  eg:-let structure={key:{type:DataType }}
+      const Schema = new mongoose.Schema(structure);
+--------------------------------------------------------------------------------------------------------------------------
+//using schema to design the model :-
+3.using schema to design the model ===>refer from :- ModelDesignUsingSchema.txt
+  eg:-const Model = mongoose.model("created_new_collection_name_str", created_schema-name);
+--------------------------------------------------------------------------------------------------------------------------
+4.using model to perform the MoongoseMethods ===> refer from :-moogoseMethods.txt
+
+eg:-let createMovie = async(req, res) => {
+               try{
+                   const movie= await Model.create(req.body)  ------------>from post
+                   res.status(200).json({
+                       status:"success",
+                       data:{
+                           movie
+                       }
+                   })
+               }
+               catch(err){
+                   res.status(404).json({
+                       status:"fail",
+                       message:err.message
+                   })
+               }
+};

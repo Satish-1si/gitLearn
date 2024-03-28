@@ -1,0 +1,117 @@
+
+
+const middleware=(req,res,next)=>{
+    req.addproperty=value // send in next middleware
+    next()//excute next middleware
+}
+===============================================================================================
+1.indiviualRoute ==> ki ==>apply middleware
+   app.get(routePath   ,(req, res, next) {})
+   app.post(routepath  ,(req, res, next) {})
+   app.put(routepath   ,(req, res, next) {})
+   app.patch(routepath ,(req, res, next) {})
+   app.delete(routepath,(req, res, next) {})
+===============================================================================================
+2. at a time  apply AllRoutes ==>middleware
+   app.use(routepath,(req, res, next) {})  
+   app.use("*"      ,(req, res, next) {})
+   app.All(routepath,(req, res, next) {})
+================================================================================================
+3.at a time apply multiple middleware in ==> single middleware 
+   app.get(routepath,middleware1,middleware2,middleware3)
+   app.use(routepath,middleware1,middleware2,middleware3)
+================================================================================================
+4.all method common route vuntee ==> that time we can use in methodChaining approch 
+    i) app.route('/routepath').get(function (req, res, next) {})
+                              .post(function (req, res, next) {})
+                              .put(function (req, res, next) {})
+
+   ii) app.route('/routepath').get(function (req, res, next) {},function (req, res, next) {})
+                              .post(function (req, res, next) {},function (req, res, next) {})
+                              .put(function (req, res, next) {},function (req, res, next) {})
+=================================================================================================                       
+5./*particular Dynamic parameters is enter in user ==>that time this MiddleWareRouter called*/
+const MiddlewareRouter=require("express").Router()//return router object
+/*paramMiddleware */
+MiddlewareRouter.param("id",(req,res,next,value)=>{
+   console.log(value)
+   next()
+})
+===================================================================================================
+6.Router Middleware
+1.let express=require("express)
+2.let app=express();
+3.const MiddlewareRouter=express.Router()//return router object
+4.MiddlewareRouter.route("/") ===>non Duplicate path
+                  .get(GetHandeler)
+                  .put(putHandelermethod)                                                       
+                  .post(bodyvalidation,PostHandler)==>chaining multiple middlewares
+5.MiddlewareRouter.route("/no") ===>non Duplicate path
+                  .patch(PatchHandler)
+                  .delete( DeleteHandler)
+                                                                   
+6.app.use("movies/lang/type",MiddlewareRouter)=>Duplicate path
+====================================================================================================
+7.Dynamically send  static file :-
+app.use(express.static("./public"))
+==========================array==========================================================================
+8.function logOriginalUrl (req, res, next) {
+  console.log('Request URL:', req.originalUrl)
+  next()
+}
+
+function logMethod (req, res, next) {
+  console.log('Request Type:', req.method)
+  next()
+}
+
+const logStuff = [logOriginalUrl, logMethod]
+app.get('/user/:id', logStuff, (req, res, next) => {
+  res.send('User Info')
+})
+====================================error halding====================================================
+app.use((err, req, res, next) => {
+  console.error(err.stack)
+  res.status(500).send('Something broke!')
+})
+===============================Note======================================================================
+1.middle 2types:- 1.routeless middlware 
+                  2.route middleware 
+                  3.param middleware
+                  4.static middleware 
+                  5.router miidleware 
+2. routes-less mideelware use chesthe ===> only one time response ni send cheyali else error ocuur 
+                                      ===>but all middleware lonu ==> logic immplement chesukovachu || req send cheyavacu
+3.okka route ===>eni mmideware apply chesukovachu 
+  eg:- app.use("/",(req,res,next)=>{...next()},(req,res,next)=>{...next()},....)
+  =======================real Time middlewares======================================================
+
+  server.use(express.json()) ==>add client sended body in  req object @ server
+  server.use(morgan("dev)) ==> check the clent details
+  ---------------------- -------------------- ---------------------- ------------------------
+  1.server.use(express.static("./public")) ==> server the static files in client to senter particlar file name in url
+  1.server.use('/static', express.static(path.join(__dirname, 'public')))
+=====================================Routeless middleware==================================================================
+
+const express = require("express");
+const app = express();
+
+// Middleware function
+const myMiddleware = (req, res, next) => {
+    console.log("This is a routeless middleware");
+    next();
+};
+
+// Applying middleware at the application level
+app.use(myMiddleware);
+
+// Define your routes below
+app.get("/", (req, res) => {
+    res.send("Hello World!");
+});
+
+// Start the server
+const port = 3000;
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
+});

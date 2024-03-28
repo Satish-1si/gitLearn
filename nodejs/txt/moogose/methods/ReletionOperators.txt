@@ -1,0 +1,9 @@
+ http://localhost:3356/api/v1/movies?name="sai"&age[gte]=27&rating[lte]=2.9&price[ge]=100&score[le]=120&version[ne]=1.2
+ 
+ syntax:- model.find().where("string_key").equals("stringValue")
+ eg:-let movies= await model.find().where("name")   .equals(req.query.name")
+                                   .where("age")    .gte(req.query.age.gte)
+                                   .where("rating") .lte(req.query.rating.lte)
+                                   .where("price")  .ge(req.query.price.ge)
+                                   .where("score")  .le(req.query.score.le)
+                                   .where("version").ne(req.query.version.ne)

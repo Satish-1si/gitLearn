@@ -1,0 +1,171 @@
+
+Note:- Api :- allows softwares it Talk with 2 or more softwares
+1.create server 
+---> server.method("url",(request,response)=>{})
+--------------------------------------------------------------------------------------------------------------------------------
+Note:-
+# response methods:-
+* send the status code
+1.res.status(200)
+--------------------------------------------------------------------------------------------------------------------------------
+*send stringData || JsonData:-
+2.res.send("anyStringData||stringHtml")  ==>based on Responsedata ==>content-type ==>automatically send in headers (text||html)
+  res.Json({key:value})  ==>based on Responsedata ==>content-type ==>automatically send in headers (Json)
+--------------------------------------------------------------------------------------------------------------------------------
+*chaining :- 
+3.res.status(200).send("any stringData send")
+---------------------------------------------------------------------------------------------------------------------------------
+*client sended request body ===>cant visible in server side :- that we can use ===>Middleware methods 
+
+/*MIDDLEWARE is just a function ==>It can convert the Incoming Data EG:-Body*/
+let MIDDLEWARE=()=>express.json()
+
+/*BY using Middleware at all routes -->we can use one method ---> express().use(MiddleWareFun)*/
+express().use(MIDDLEWARE) ==>req.body (access)
+----------------------------------------------------------------------------------------------------------------------------------
+Routing :- is the process.clientRequests handle by the backend-application-server
+*Route ==> Httpmethod + url
+
+----------------------------------------------------------------------------------------------------------------------------------
+app.get("/api/v1/movies",GetRoute);
+app.post("/api/v1/movies",PostRoute);
+app.patch("/api/v1/movies/:id",patchRoute );
+app.delete("/api/v1/movies/:id", DeleteRoute);
+====================>common route methods<=========================
+app.route(path) ===> method is used to create chainable route handlers for a specific route path
+eg:-
+app.route("/api/v1/movies").get(GetRoute).post(PostRoute)
+app.route("/api/v1/movies/:id").patch(patchRoute).delete(patchRoute)
+
+Note:-/api/v1/Bricks/:productId?/:name? 
+==>:productId?,:name?  ==> optional Dynamic parameter
+======================================================================================================================================
+
+---------------------------------------------------------------------------------------
+1.require("express").Route().route(path)
+                            .param("key",(req,req,next,value))
+=======================================================================================
+1.without reading the data ,directly send the html files ==>(static files)
+ :- app.use(require("express").static("html_floder_path"))
+=========================================================================================
+1.Middleware :-is Just like a function
+             :- in b/w client and server ==>middlewares contain 
+             :-client send request data process the middleware function and move frward
+# syntax:-
+     let Middleware=(req,res,next)=>{
+                  req ,res------->object
+                  next() --->call the next middleware
+    }
+2.yee routeHandelers hit chesinaa middlewareFun excute avalli antee--->  using one method :-
+ #syntx:-   1.const app=express()
+            2.app.use(MiddlewareFun)
+--------------------excute all Route Handeler function ----------------------
+              app.get("path/c/d",RouteHandeler)
+              app.put("path/s/x",RouteHandeler)
+              app.get("path/m/n",RouteHandeler)
+              app.patch("path",RouteHandeler)
+
+3.particular routeHandlers ki mataramaa middlewareFun excute avalli antee--->  using one method :-app.use("routepath",middleware)
+ #syntx:-   1.const app=express()
+            2.app.use("path/c/d",MiddlewareFun)
+            
+=======================================arrage routes in orgazied way=================================================================== 
+let express =require("express")
+let app=express()
+
+---------------------------------------------------
+/*1 way*/
+app.get("movies/lang/type/no"   ,Handelermethod)
+app.put("movies/lang/type/no"   ,Handelermethod)
+app.post("movies/lang/type/no"  ,Handelermethod)
+app.patch("movies/lang/type"    ,Handelermethod)
+app.delete("movies/lang/type"   ,Handelermethod)
+                    or 
+app.get(["/movies","/tour","/ram"],Handelermethod)
+---------------------------------------------------
+/*2 way ===> app route mthd                                            /*3way ====>using express returnRoute mtd
+   Advantage:- ee method use route chaning gain (code Reuseable)         Advantage:- 1.ee method use route chaning gain (code Reuseable)
+*/                                                                                   2.url (code Reuseable)                                                  
+                                                                       */
+  
+
+
+1.let express=require("express)                                         1.let express=require("express)
+2.let app=express();                                                    2.let app=express();
+                                                                        3.const MiddlewareRouter=express.Router()//return router object
+3.app.route("movies/lang/type/no")                                      4.MiddlewareRouter.route("/") ===>non Duplicate path
+           .get(getHandelermethod)                                                         .get(GetHandeler)
+           .put(putHandelermethod)                                                         .post(PostHandler)
+           .post(postHandelermethod)                                                       .put(putHandelermethod)                                                         .post(PostHandler)
+         
+                                                                                  
+         
+
+4.app.route("movies/lang/type")                                          5.MiddlewareRouter.route("/no") ===>non Duplicate path
+             .delete(Handelermethod)                                                      .patch(PatchHandler)
+             .patch(Handelermethod)                                                       .delete( DeleteHandler)
+                                                                   
+                                                          -------------------apply Middleware from prticular path--------------------------------
+                                                                         6.app.use("movies/lang/type",MiddlewareRouter)=>Duplicate path
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+/*MiddleWareRouter */
+const MiddlewareRouter=require("express").Router()//return router object
+
+/*paramMiddleware */
+MiddlewareRouter.param("id",(req,res,next,value)=>{
+    console.log(value)
+    next()
+})
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+read chesinapu data ==>string laga vasthudi ===>string html send cheyavachu
+
+=============================================================================================================================================================
+1.query :-*particular Resource lo these key vunaa ee particular matched values kavalli 
+          *server lo Developer cant set ===> query keys:values
+          *client automatically send the ===> key:values
+          *to send the query params ==> after resource ==>resource?key:value -->singe query
+                                                       ==>resource?key:value&key:value -->multiple query
+example:-client sended url
+   1.hosturl/resource?name=tom&age=55 
+                   ===> console.log(req.query) 
+                                           ==>{name:tom,age:55 }
+
+
+2.params :-particular Resource lo these key|| value || arg vunna values kavali
+           *server lo Developer set ===> params keys:values ==>hosturl/resource/:key/:value?/:arg
+           *to send the query params ===> after resource ==>resource/parameter1 -->singe query
+                                                         ===>resource/paramt1/paramt2/paramt3 -->multiple query
+           *optional parameter ==>resoure/:id? 
+
+example:-
+
+   #sever set url:-
+       1.hosturl/resource/:key1/:value1 
+   #client sended url:-
+       1.hosturl/resource/name/sai 
+                   ===> console.log(req.params) 
+                                           ==>{key1:tom,value1:55 }
+--------------------------------------params|| query DE--------------------------------------------------------------------------------------
+Note :- 1.params :- Developer set params keys in server @ url 
+        2.query  :- Developer cant set keys in server @url .Dynamic send key:values in client
+                 :- each Resource to maintain ==> multiple parameter but by using & to separate
+                  eg:- client send url ==> Resource/key1=value1&key2=value2....
+---------------------------------server uses--------------------------------------------------------------------------------------------
+const server=express()
+             ============>get,put.... -->to handle routesPath
+             ============>use -->to handle routesPth middlewares 
+                              -->to handle routesLess middlewares
+                              --->to write the logics & pass to anothore middlewares 
+                              --->using next() method :-middleware are communited with another middlewares
+
+
+
+------------------------------------------url to curd oprtions------------------------------------------------------------------------------------
+1./Resource     -->get all objects
+2./Resource
+         /:age-->in particular resource get particular matched objects 
+3./Resource
+          /:age  
+              ?name="sai"&score=60 --> particular matched object lo satified these Details in that objects to get
+                                                                  

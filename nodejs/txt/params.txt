@@ -1,0 +1,30 @@
+1.query :-*particular Resource lo these key vunaa ee particular matched values kavalli 
+          *server lo Developer cant set ===> query keys:values
+          *client automatically send the ===> key:values
+          *to send the query params ==> after resource ==>resource?key:value -->singe query
+                                                       ==>resource?key:value&key:value -->multiple query
+example:-client sended url
+   1.hosturl/resource?name=tom&age=55 
+                   ===> console.log(req.query) 
+                                           ==>{name:tom,age:55 }
+
+*********************************************************************************************************************************************************
+2.params :-particular Resource lo these key|| value || arg vunna values kavali
+           *server lo Developer set ===> params keys:values ==>hosturl/resource/:key/:value?/:arg
+           *to send the query params ===> after resource ==>resource/parameter1 -->singe query
+                                                         ===>resource/paramt1/paramt2/paramt3 -->multiple query
+           *optional parameter ==>resoure/:id? 
+
+example:-
+
+   #sever set url:-
+       1.hosturl/resource/:key1/:value1 
+   #client sended url:-
+       1.hosturl/resource/name/sai 
+                   ===> console.log(req.params) 
+                                           ==>{key1:tom,value1:55 }
+************************************************************************************************************************************************************
+Note :- 1.params :- Developer set params keys in server @ url 
+        2.query  :- Developer cant set keys in server @url 
+
+

@@ -1,0 +1,15 @@
+1.DataType     : String 
+  key          : Number 
+  key          : Date 
+  key          : Boolean 
+  key          : [Data-Type1,Data-Type2]  ==>array
+  key          : {key: Data-Type,city: Data-Type,}
+  image        : Buffer
+  dynamicField : mongoose.Schema.Types.Mixed
+  OtherRefere  : mongoose.Schema.Types.ObjectId
+
+2.required   : [true, "Name field is required !!!"],
+3.unique     : true
+4. 1.string  : minlength: 2  || maxlength: 50
+   2.trim    : true ==> string before and after remove the white spaces
+5.Number     : min      : 18 || max      : 100

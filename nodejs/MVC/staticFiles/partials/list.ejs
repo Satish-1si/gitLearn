@@ -1,0 +1,8 @@
+//		res.render("code",{data:"satish",score:[1,2,3,4]})
+
+<h1><%= data %></h1>
+<% if(score.length !==0){%>
+  <%score.forEach(arr=>{%>
+     <li><%= arr %></li>
+  <%})%>
+<%}%>

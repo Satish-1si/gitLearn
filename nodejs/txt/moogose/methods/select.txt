@@ -1,0 +1,13 @@
+//select particular fields :- 1.exclude keys :- starts with eg:- "-age"
+                              eg:- http://localhost:3356/api/v1/movies?select=-duration,-ratings
+                              
+                              2.included keys:- starts with eg:- "age"
+                              eg:- http://localhost:3356/api/v1/movies?select=duration,ratings,totalRating
+
+1.solution:-
+    1.let query=req.query.select ===> 'duration,ratings,totalRating'
+    2.let replacedString =" ";
+    3.let selectQueries=(query.replace(/,/g,(matchArgument)=>replacedString)); ===> "duration ratings totalRating"
+    4.let GetMoives = await MoviesModel.find().select(selectQueries);
+output:- 
+   [{duration:value,ratings"value,totalRating:value},{duration:value,ratings"value,totalRating:value}]

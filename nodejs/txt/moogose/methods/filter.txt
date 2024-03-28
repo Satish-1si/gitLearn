@@ -1,0 +1,9 @@
+1.using query moogose oprtors :- to get   ==> get all ===>(filter)
+//1way:-
+  1.find().where("name").equals(req.query.name) 
+          .where("duration").gte(req.duration.gte)
+          .where("rating").lte(req.rating.lte)   ===>1way filtering
+//2way:-
+  1.let Stringify_query=JSON.stringify(req.query);
+  2.Stringify_query=Stringify_query.replace(/gte|lte|eq|gt|lt/g,(match)=>`$${match}`)
+  3.let GetMoives = await MoviesModel.find(JSON.parse(Stringify_query))  ===>2way filtering

@@ -1,0 +1,40 @@
+[
+	{
+		"pots": [
+			{
+				"productId": 0,
+				"name": "big_pot",
+				"color": "red",
+				"rate": 200,
+				"BuildNo": 13501
+			}
+		],
+		"Bricks": [
+			{
+				"name": "old_Big_bricks",
+				"color": "clay_red_flash",
+				"rate": 9,
+				"productId": 3,
+				"BuildNo": 13604
+			}
+		],
+		"crops": [
+			{
+				"productId": 0,
+				"name": "swarana_Rice",
+				"quality": "1st",
+				"rate": 1200,
+				"BuildNo": 13701
+			}
+		],
+		"stealpots": [
+			{
+				"productId": 0,
+				"name": "steel_pot",
+				"design": "circle",
+				"rate": 600,
+				"BuildNo": 13801
+			}
+		]
+	}
+]

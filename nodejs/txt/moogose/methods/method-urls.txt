@@ -1,0 +1,38 @@
+1.post url :- 1.http://localhost:3356/api/v1/Resource + 2.JSON-BODY 
+------------------------------------------------------------------------------
+2.get url :- 1.http://localhost:3356/api/v1/Resource  ==>get particular Resource Items
+             2.http://localhost:3356/api/v1/Resource/:id ==>particular Resource get acess Dynamic  Item
+             3.http://localhost:3356/api/v1/Resource?id=value&age=24 ==>  get particular matched query values 
+------------------------------------------------------------------------------
+3.delete url:-1.http://localhost:3356/api/v1/Resource?id=value&age=24 ==> Delete particular matched query values 
+------------------------------------------------------------------------------
+4.update url:-1.http://localhost:3356/api/v1/Resource?id=value&age=24 ==> update particular matched query values 
+                       + 
+              2.update body    
+------------------------------------------------------------------------------
+5.pagenation:-1.http://localhost:3356/api/v1/Resource?limit=10&page=1 ==>in particular page ==> to access  mention  limit items
+------------------------------------------------------------------------------
+6.sort :-1.http://localhost:3356/api/v1/movies?sort=-duration,ratings,totalRating==>in particular Details tho sort chesthamu 
+ Note:  - ==> accesiding order sort 
+          
+------------------------------------------------------------------------------
+7.filter :-http://localhost:3356/api/v1/Resource?id[gte]=value&age[lte]=24&score[ge]=3&name=sai ==>in particular Details tho filter chesthamu
+----------------------------------------------------------------------------------
+8.select particular fields :- 1.exclude keys :- starts with eg:- "-age"
+                               eg:- http://localhost:3356/api/v1/movies?select=-duration,-ratings                              
+                              2.included keys:- starts with eg:- "age"
+                               eg:- http://localhost:3356/api/v1/movies?select=duration,ratings,totalRating
+----------------------------------------------------------------------------------
+8.count:- 1.http://localhost:3356/api/v1/Resource ,etc..
+----------------------------------------------------------------------------------
+9.limit :-1.http://localhost:3356/api/v1/Resource ,etc...
+----------------------------------------------------------------------------------
+10.
+--------------------------------------------------------------------------------------
+1.get        ==>Resouse ,params,query
+2.sort       ==>Resource ?sort=-key1,key2,key3 
+3.select     ==>Resource ?select=key1,key2,key3 
+             ==>Resource ?select=-key1,-key2,-key3              
+4.filter     ==>Resource ?id[gte]=value&age[lte]=24&score[ge]=3&name=sai
+5.pagenation ==>Resource ?limit=10&page=1
+6.

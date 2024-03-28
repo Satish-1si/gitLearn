@@ -1,0 +1,18 @@
+# __dirname==>current working directory return 
+1.create path using pathModule:- 
+#join the path using pathModule==>path.join(pathstr,"code.html")
+
+1.app.use(Route,(req,res,next)=>{
+    res.send(<h1>satish</h1>)
+    next()
+})
+          ||
+1.app.use(Route,(req,res,next)=>{
+    res.sendFile(path.join(__dirnamestr,floderstr,file.jsstr))
+    next()
+})
+-----------------------------------------------------------------------------------------------------------------------------------------------
+//client enter any Dynamic file name in url ==>to serve the static file in this particular middleware 
+1.app.use(express.static("./public")) 
+  Note:- 1.server lo vunaa public floder loo ==> client enter chesina yee file vuntee==> clent ki return chsthudi
+         2.server lo vunaa public floder loo===> client enter chesina file lekapothe==>public lo vunaa index.html return chesthudi

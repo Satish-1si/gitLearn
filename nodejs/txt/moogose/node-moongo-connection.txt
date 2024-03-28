@@ -1,0 +1,19 @@
+1.const mongoose = require("mongoose");
+// Ensure that the connection string is correctly set in your environment variables
+const connectionStr = process.env.Connection_Str;
+
+// Connect to MongoDB using Mongoose
+let promise=mongoose.connect(connectionStr, { useNewUrlParser: true, useUnifiedTopology: true })
+promise.then(() => console.log("Connected to MongoDB"))
+       .catch((error) => console.error("Connection to MongoDB failed:", error.message));
+====================================2way========================================================================
+       or 
+//connecting moogose db in nodejs
+mongoose.connect("connectPath",(err)=>{
+     if(!error){
+        console.log("connection success")
+     }
+     else{
+       console.log("connection failed")
+     }
+})

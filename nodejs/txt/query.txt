@@ -1,0 +1,18 @@
+1.exmaple:- 
+#query string ===> to send that client 
+------>/api/v1/Resorce?id=12&name=sai
+Note:- client send queryString    :- ?id=12
+       server not send queryString 
+===============================1way=========================================================
+console.log(req.query) ==>{id:12,name:sai}
+===============================2way============================================================
+*url object kavalli antee  ==> url package import chesukovalli...
+1.const url = require('url');
+2.const urlString = 'https://www.example.com:8080/path/to/resource?param1=value1&param2=value2#section1';
+
+# Parse the URL string into a URL object :-
+3.const urlObject = url.parse(urlString, true);
+  console.log(urlobject)
+
+4.output:-Url {protocol: null,slashes: null,auth: null,host: null,port: null,hostname: null,hash: null,search: null,query: [Object: null prototype] {},pathname: '/api/v1/movies',path: '/api/v1/movies',href: '/api/v1/movies'}
+

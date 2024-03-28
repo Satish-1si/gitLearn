@@ -1,0 +1,5 @@
+//Delete using Id:-
+1.const DeleteMovie= await MoviesModel.findByIdAndDelete(req.params.Id)
+
+//deleteMany:-
+1.const MultipleDeleteMovies=await MoviesModel.deleteMany();

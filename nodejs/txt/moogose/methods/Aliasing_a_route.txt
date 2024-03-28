@@ -1,0 +1,35 @@
+
+Note:- http://localhost:3356/api/v1/movies/hightestRatedMovies
+===================================================================
+exports.getHighestRatedMovies=async(req,res,next)=>{
+	     console.log("hightestRatedMovies")
+         req.limit="5"
+		 req.sorted="-rating"
+		 next()
+} ----->from1
+====================================================================
+exports.getAllMovies = async (req, res) => {
+	let getAllMovies =MoviesModel.find();
+    let sort=getAllMovies.sort(req.sorted);
+	let limit=await sort.limit(req.limit);
+
+	try{
+           res.status(200).json({
+			 status:"suceess",
+			 Data:limit
+		   })
+	}
+	catch(error){
+		res.status(404).json({
+			status:"un-suceess",
+			errpr_msg:error.message
+		  })
+	}
+}------->from2
+
+=========================================================================
+const Router = express.Router();
+Router.route("/hightestRatedMovies")
+     .get(getHighestRatedMovies,getAllMovies) ==>Route aliasling
+Router.use(/api/v1/movies)
+==========================================================================

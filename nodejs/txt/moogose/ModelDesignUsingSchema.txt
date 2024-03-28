@@ -1,0 +1,24 @@
+let structure={
+    name: {
+        type: String,
+        required: [true, "Name field is required !!!"],
+        unique: true
+    },
+    duration: {
+        type: Number,
+        required: [true, " duration field is required !!!"]
+    },
+    description: {
+        type: String,
+    },
+    ratings: {
+        type: Number, // Assuming gender is a string
+        default:1.0
+    },
+    
+}
+// Define the schema for the student collection
+const MoviesSchema = new mongoose.Schema(structure);
+
+// Create the student model
+const MoviesModel = mongoose.model("created_new_collection_name_str", created_schema-name);

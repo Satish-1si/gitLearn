@@ -1,0 +1,20 @@
+//sorting:- 1.accesing order   :-"age"   
+            2.desending order  :-"-age"
+ 
+ 1.MoviesModel.find().sort("name age")     ==>multiple fields accessing order to sort
+ 2.MoviesModel.find().sort("name -age")    ==>multiple fields 1.accessing==>name || 2.deseding ==>age
+ 3.MoviesModel.find().sort("-score -age")  ==>multiple fields Decending order to sort
+ 
+ 
+ example:-http://localhost:3356/api/v1/movies?sort=duration,ratings,totalRating
+ solution:-
+    1.let query=req.query ===> 'duration,ratings,totalRating'
+    1.let replacedString =" ";
+    2.let sortQueries=(query.sort.replace(/,/g,(matchArgument)=>replacedString)); ===> "duration ratings totalRating"
+    3.let GetMoives = await MoviesModel.find().sort(sortQueries);
+
+======================syntax===========================
+1.query.sort({ field: 'asc', test: -1 });
+1.query.sort('field -test');
+2.query.sort([['field', 'asc']]);
+===========================================

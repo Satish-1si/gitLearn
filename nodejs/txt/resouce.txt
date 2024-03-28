@@ -1,0 +1,18 @@
+--------------------------------------------------------------------------------------------------------------------------------
+*Dynamic Route parmetes:- based on particular Resource to filter,sort,find these type of opertion we have perfrom that time Dynamic Route parmetes can be added in url
+*Dynamic Route parmetes:- 
+  eg:-  https://example.com/users/:usersid    ||   https://example.com/products/:id  ||  https://example.com/products/:catag/:sub_catag/:supSub_catag/:name
+        1.Resource:-/users                    ||   1.Resource:-/products             ||  1.Resource:-/products                 
+        2.Dynamic parameter:-/:usersid        ||   2.Dynamic parameter:-/:id         ||  2.Dynamic parameter:-/:catag || /:sub_catag || /:supSub_catag || /:name
+
+  eg:- https://example.com/users/123          ||   https://example.com/products/456  ||  https://example.com/products/category/electronics/brand/apple
+       ===> 123 -->Route parameter            ||   ===> 456 -->Route parameter       ||  ===> apple -->Route parameter
+
+*Dynamic Route parmetes:- optional  ==>(?)
+  eg:- https://example.com//:id/:name?   ||   https://example.com/products /:id/:product?/:rate?  
+       https://example.com//10           ||   https://example.com/products/30 /         /200
+
+ Note:-Dynamic Route parmetes:-must be used in last in url
+  
+=====================>console.log(request.params) --->{key:value,.......}<===========================
+Note-params :-predefined property

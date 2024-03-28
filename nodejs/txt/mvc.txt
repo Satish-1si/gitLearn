@@ -1,0 +1,15 @@
+m==> moongose schema || bussiness logic
+v==> views
+c==> handler methods 
+
+[client]-------Request------->[Router]
+                                  ------------>[controller] <====================>[Model]
+                                  ------------>[controller] <====================>[view]
+                                                          
+=================================================================================================
+   [1st-excute]  ===>    [2nd-excute]   ===>[3rd-excute]  ===>[4th-excute]    ===>[5th-excute]       
+ # server(5)     <===    middelware(4)  <===Routes(3)     <===controllers(2)  <=== model(1) 
+   [2nd-import]  <===    [3rd-import]   <===[4th-import]  <===[ 5th-import]                                                                        
+   
+   Note:- server ==>.dotenv + moogose connection
+=================================================================================================

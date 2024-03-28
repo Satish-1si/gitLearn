@@ -1,0 +1,86 @@
+1.find().or([{},{}]),
+2.find().and([{},{}]),
+# find({name:{$eq:"sai},age:{$gt:30}}) ===>filtering the Data
+
+3.where("key"),
+4.skip(How_Docs_many_skips),
+5.limit(How_many_get_no),
+
+6.lte(str_no||no),
+7.gte(str_no||no),
+8.ne(str_no||no),
+9.gt(str_no||no),
+10.lt(str_no||no)
+11.equals(str_no||no)
+
+
+
+// simillary ==>1.select() || 2.sort()
+12. 1.select({key:value}||"key1 key2"||[key1,key2]) ==>get these matched fields 
+    2.select("-key1 -key2") ==>avoid these fields 
+
+13.count Documents:- [{},{},{}].countDocuments();
+
+
+//get :-
+1.get all movies :- 
+let GetMoives=await MoviesModel.find(); ==>[{},{},{},{}]
+Note:- http://localhost:3356/api/v1/movies
+--------------------------------params------------------------------------------
+2.get single movie :- using any params  :
+let GetAllMoives=await MoviesModel.find({name:req.params.name});
+Note:-http://localhost:3356/api/v1/movies/sai
+
+3.get single movie :- using params Id
+let GetAllMoives=await MoviesModel.findByID(req.params.id);
+Note:-http://localhost:3356/api/v1/movies/135
+--------------------------------query----------------------------------------------
+4.get single movie :- using query key 
+let GetMoives = await MoviesModel.find({name:req.query.name,duration:req.query.duration*1})//get particular movie
+Note:-http://localhost:3356/api/v1/movies?name="sai"&duration=5.7
+
+5.get single movie :- using query 
+let GetMoives = await MoviesModel.find(req.query)//get particular movie
+Note:-http://localhost:3356/api/v1/movies?name="sai"&duration=5.7
+
+6.get single movie :- using query with moogoose special methods
+let GetMoives = await MoviesModel.find().where("key").equals(req.query.value)
+Note:-http://localhost:3356/api/v1/movies?name="sai"&duration=5.7
+----------------------------------logical operator:- get multiple Documents fields conditionlly-----------------------------
+7.	//get all movies:-
+	   let GetMoives = MoviesModel.find();
+	//get condition matched movies :-
+	   1.GetMoives = await GetMoives.and([{key1:value1},{duration: 142}]) ==>and() method.
+                                    ||
+       2.GetMoives = await GetMoives.or([{key1:value1},{duration:{$ge: 142}}]) ==>or() method.
+                           
+-------------------------------where ==> get multiple Documents fields conditionlly -------------------------------------------
+ 8.eg:-let movies= await model.find().where("name")   .equals(req.query.name")
+                                     .where("age")    .gte(req.query.age.gte).lte(300)
+                                     .where("rating") .lte(req.query.rating.lte)
+                                     .where("price")  .ge(req.query.price.ge)
+                                     .where("score")  .le(req.query.score.le)
+                                     .where("version").ne(req.query.version.ne)                                 
+Note:-  http://localhost:3356/api/v1/movies?name="sai"&age[gte]=27&rating[lte]=2.9&price[ge]=100&score[le]=120&version[ne]=1.2
+-----------------------------------select ==> particular Docs --------------------------------------------------------------------
+9.  1.let query=req.query.select ===> 'duration,ratings,totalRating'
+    2.let selectQueries=(query.replace(/,/g,(matchArgument)=>replacedString)); ===> "duration ratings totalRating"
+    3.let GetMoives = await MoviesModel.find()
+                                       .select(selectQueries);==>[{},{},{}]
+Note:-query.select('a b'); ==>[{},{},{}]
+      query.select(['a', 'b']);==>[{},{},{}]
+      query.select({ a: 12, b: 13 });==>[{},{},{}]
+      query.select('-c -d');==>[{},{},{}] //exclude c and d, include other fields
+
+Note:-http://localhost:3356/api/v1/movies?select=duration,ratings,totalRating
+--------------------------------------sort ==> particular Docs fields ------------------------------------------------------------------
+10. 0.let query=req.query ===> 'duration,ratings,totalRating'
+
+    1.let replacedString =" ";
+    2.let sortQueries=(query.replace(/,/g,(matchArgument)=>replacedString)); ===> "duration ratings totalRating"
+    3.let GetMoives = await MoviesModel.find().sort(sortQueries);
+
+Note:- http://localhost:3356/api/v1/movies?sort=duration,-ratings,totalRating
+
+----------------------------------------------get the unique Docs--------------------------------------
+    1.const distinctCities = await User.distinct('city', { age: { $gte: 18 } });

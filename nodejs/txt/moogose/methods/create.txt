@@ -1,0 +1,10 @@
+
+//postman :- 1.(post)+ http://localhost:3356/api/v1/movies +{} ==>insert one Docs 
+             2.(post)+ http://localhost:3356/api/v1/movies +[{},{},{}] ==>insert Multipe Docs 
+
+//methods 
+1.create({})==> create one 
+2.create([{},{},{}])==>create multiple 
+eg:-const movie= await MoviesModel.create(req.body)  ------------>from post
+
+

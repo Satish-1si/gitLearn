@@ -1,0 +1,4 @@
+//only that limit Document can access
+
+1.limit(no_of_Docs_getting)
+let GetMoives =await MoviesModel.find(JSON.parse(Stringify_query)).limit(3) 

@@ -1,0 +1,82 @@
+//methods 
+1.create({})==> create one 
+2.create([{},{},{}])==>create multiple 
+**************************************************************************************
+1.find({}) ==>get all
+//using params to get :-
+2.find(req.params)==>get one
+  find({name:req.params.name,age:req.params.age})==>get one
+//using query to get :-
+3.find(req.query)==>get one
+  find({name:req.query.name,age:req.query.age})==>get one
+4.using query moogose oprtors :- to get   ==> get all ===>(filter)
+//1way:-
+  1.find().where("key").equals(req.query.value) ===>1way filtering
+//2way:-
+  1.let Stringify_query=JSON.stringify(req.query);
+  2.Stringify_query=Stringify_query.replace(/gte|lte|eq|gt|lt/g,(match)=>`$${match}`)
+  3.let GetMoives = await MoviesModel.find(JSON.parse(Stringify_query))  ===>2way filtering
+**************************************************************************************
+5.findById(id) ==>get one
+6.findByIdAndUpdate(id,body,options) ==>update All Docs using id
+7.findByIdAndDelete(id) ==>Delte All Docs using id
+8.deleteMany()
+
+====================================method Brief details===================================================
+//create:-
+1.const movie= await MoviesModel.create(req.body)  ------------>from post
+
+//get :-
+1.get all movies :- 
+let GetMoives=await MoviesModel.find();
+2.get single movie :- using any params 
+let GetAllMoives=await MoviesModel.find({name:req.params.name});
+3.get single movie :- using params Id
+let GetAllMoives=await MoviesModel.findByID(req.params.id);
+4.get single movie :- using query key value
+let GetMoives = await MoviesModel.find({name:req.query.name,duration:req.query.duration*1})//get particular movie
+5.get single movie :- using query 
+let GetMoives = await MoviesModel.find(req.query)//get particular movie
+6.get single movie :- using query with moogoose special methods
+let GetMoives = await MoviesModel.find().where("key").equals(req.query.value)
+7.limit(no_of_Docs_getting)
+let GetMoives =await MoviesModel.find(JSON.parse(Stringify_query)).limit(3) 
+==================================================================================================
+// update :-
+let Id=req.params.id;
+let body=req.body;
+let ReturnCreateObject={new:true,runValidators:true}//runValidators:-validators return proper msg
+1.const UpdatedMovie= await MoviesModel.findByIdAndUpdate(Id,body,ReturnCreateObject)
+=====================================================================================================
+//Delete:-
+1.const DeleteMovie= await MoviesModel.findByIdAndDelete(req.params.Id)
+1.const MultipleDeleteMovies=await MoviesModel.deleteMany();
+================================================================================================================
+//sorting:- 1.accesing order   :-"age"   
+            2.desending order  :-"-age"
+ 
+ 1.MoviesModel.find().sort("name age")     ==>multiple fields accessing order to sort
+ 2.MoviesModel.find().sort("name -age")    ==>multiple fields 1.accessing==>name || 2.deseding ==>age
+ 3.MoviesModel.find().sort("-score -age")  ==>multiple fields Decending order to sort
+ 
+ 
+ example:-http://localhost:3356/api/v1/movies?sort=duration,ratings,totalRating
+ solution:-
+    1.let query=req.query ===> 'duration,ratings,totalRating'
+    2.let replacedString =" ";
+    3.let sortQueries=(query.sort.replace(/,/g,(matchArgument)=>replacedString)); ===> "duration ratings totalRating"
+    4.let GetMoives = await MoviesModel.find().sort(sortQueries);
+================================================================================================================
+//select particular fields :- 1.exclude keys :- starts with eg:- "-age"
+                              eg:- http://localhost:3356/api/v1/movies?select=-duration,-ratings
+                              
+                              2.included keys:- starts with eg:- "age"
+                              eg:- http://localhost:3356/api/v1/movies?select=duration,ratings,totalRating
+
+solution:-
+    1.let query=req.query.select ===> 'duration,ratings,totalRating'
+    2.let replacedString =" ";
+    3.let selectQueries=(query.replace(/,/g,(matchArgument)=>replacedString)); ===> "duration ratings totalRating"
+    4.let GetMoives = await MoviesModel.find().select(selectQueries);
+output:- 
+   [{duration:value,ratings"value,totalRating:value},{duration:value,ratings"value,totalRating:value}]

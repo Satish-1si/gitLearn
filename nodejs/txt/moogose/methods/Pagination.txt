@@ -1,0 +1,64 @@
+Pagination:- 1.vunna Data ni pages lekka divide chesthi chupisthamu.
+             2.elaa yeduku chesthamu antee ==> manaa server medda budden padakundaa
+             3.manaa server lo 100 record vuntee that all records ni chupincha vachu but
+             user can see 1st 10 record only then after to scroll another 10 records.
+             #Pagination plan:- 
+                        page_no ==> 1      ||  page_limit ===>(10)
+                        page_no ===>2      ||  page_limit ===>(20)
+                        page_no ===>3      ||  page_limit ===>(30) 
+                        page_no ===>4      ||  page_limit ===>(40) 
+                        page_no ===>5      ||  page_limit ===>(50)
+                ---------------------------||---------------------------
+                        logic:- +1         ||   logic :- +10
+                -----------------------------------------------------------
+            
+             4.1.eg:- server lo store ===> 1000records 
+               2.but user ki manam ==> 10 chapunaa records anukundamu...  
+               
+             5.client send url:-http://localhost:3356/api/v1/movies?page=1&limit=10
+               
+
+             6.How implement Pagination logic in moongoose :- 
+             sol:- in moongoose 2 functions avlible:- 
+                   -------------------------------------
+                   1.limit(how Documents can accesss_no)
+                   2.skip(how many Document can skip_no)
+                   -------------------------------------
+***************************************immplementation*******************************************************************************************8
+            7.Pagination logic immplementation:-
+                       let page = req.query.page; //===>1
+	               let limit = req.query.limit; //===>10
+	               let skip_items_count = Number(page) - 1;
+	               let Document_acess_no = Number(limit) * Number(page);
+	               let Total_DB_Docs = await MoviesModel.countDocuments();
+	               if (Document_acess_no <= Total_DB_Docs) 
+                       {
+	               	      try 
+                              {
+	               	      	    let movies = await MoviesModel.find()
+	               	      	    	                          .skip(skip_items_count)
+	               	      	    	                          .limit(Document_acess_no);
+	               	      	    res.status(200).json(
+                                        {
+	               	      	    	status: "success",
+	               	      	    	count: movies.length,
+	               	      	    	Data: movies,
+	               	      	       }
+                                   );
+	               	      } 
+                              catch (err) 
+                              {
+	               	      	    res.status(404).json({ ErrorMessage: err.message });
+	               	      }
+	               } 
+                       else 
+                       {
+		                res.status(404).json({ ErrorMessage: "no Data Occur" });
+	               }
+                    --------------------------------------------------------------------------------------
+**********************************************************************************************************************************
+
+
+                
+
+                   

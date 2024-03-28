@@ -1,0 +1,37 @@
+1.client sended query operator url :-
+
+eg:- http://localhost:3356/api/v1/movies?duration[gte]=148&ratings[lte]=8.8&totalRating[gte]=930
+
+sol:- console.log(req.query)
+
+output:- 
+        {duration   : { gte: '148' },
+         ratings    : { lte: '8.8' },
+         totalRating: { gte: '930' }
+        }
+
+Note:- mongoDb query syntax:- db.Database.find({"key":{$operator:value}})
+---------------------------------------------------------------------------------------------------
+1.nodejs_query_opertor               DE     2.mongodb_query_operator
+eg:-"totalRating": { gte: '930' }    ||     eg:-"key" : {$operator:value}
+----------------------------------   ||    ---------------------------------
+missed in ==> $ ==> symbol @ opertor ||
+
+---------------------------------------------------------------------------------------------------
+1.how to add ==> $ symbol in query string ?
+sol:-
+      a.let vertify_strings=gte|lte|eq|gt|lt
+      b.let callBack=(match)=>`$${match}`
+      ...................................................................
+      1.let Stringify_query=JSON.stringify(req.query);
+        console.log(Stringify_query)
+        output:-{"duration":{"gte":"148"},"ratings":{"lte":"8.8"},"totalRating":{"gte":"930"}}
+      
+      Note :- add $ symbool
+      1.let callBack=(mathedstr)=>`$${mathedstr}`
+      2.Stringify_query=Stringify_query.replace(/vertify_strings/g,callBack)
+        console.log(Stringify_query)
+        output:- {"duration":{"$gte":"148"},"ratings":{"$lte":"8.8"},"totalRating":{"$gte":"930"}}
+      .......................................................................
+---------------------------------------------------------------------------------------------------
+
