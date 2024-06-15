@@ -10,8 +10,9 @@
     "array-flatten": "^1.1.1",
     "axios": "^1.5.0",
     "balanced-match": "^1.0.2",
+    "bcryptjs": "^2.4.3",
     "binary-extensions": "^2.2.0",
-    "body-parser": "^1.20.1",
+    "body-parser": "^1.20.2",
     "bootstrap": "^5.3.2",
     "brace-expansion": "^1.1.11",
     "braces": "^3.0.2",
@@ -55,6 +56,7 @@
     "is-extglob": "^2.1.1",
     "is-glob": "^4.0.3",
     "is-number": "^7.0.0",
+    "jsonwebtoken": "^9.0.2",
     "lru-cache": "^6.0.0",
     "media-typer": "^0.3.0",
     "merge-descriptors": "^1.0.1",
@@ -101,13 +103,18 @@
     "undefsafe": "^2.0.5",
     "unpipe": "^1.0.0",
     "utils-merge": "^1.0.1",
+    "validator": "^13.11.0",
+    "validator.js": "^2.0.4",
     "vary": "^1.1.2",
     "yallist": "^4.0.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon rest/middleware/middleware.js"
+    "start_dev": "set NODE_ENV=Development && nodemon \"C:\\Users\\satis\\nodejs\\Authentication & Authorization\\server.js\"",
+    "start_pro": "set NODE_ENV=Production && nodemon \"C:\\Users\\satis\\nodejs\\Authentication & Authorization\\server.js\""
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "cross-env": "^7.0.3"
+  }
 }

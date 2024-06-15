@@ -1,0 +1,73 @@
+1.group:- group the unique common fields values  based on ==>1._id = "$fieldnames",
+                                                             2._id = "$fieldConditions",etc...
+#syntax:- 
+       {
+           $group:{
+               _id: <expression>, // Group key
+               <field1>: Document,
+               <field2>: Document,
+               <field3>: Document,...
+            }
+       }
+Note :- * fieldName :- anyName 
+        * document validation we can use ==>acumutor methods in Aggretion
+        *output :- _id:your select Document Fields
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+examples:- 
+1.Grouping by Single Field:- 
+{
+  $group: {
+    _id: "$category",
+    count: { $sum: 1 }
+  }
+}
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+2.Grouping by Multiple Fields:
+{
+  $group: {
+    _id: { category: "$category", subCategory: "$subCategory" },
+    count: { $sum: 1 }
+  }
+}
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+3.Grouping with Expressions:
+{
+  $group: {
+    _id: { $mod: ["$value", 2] },
+    count: { $sum: 1 }
+  }
+}
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+4.Grouping with Constants:
+{
+  $group: {
+    _id: null,
+    total: { $sum: 1 }
+  }
+}
+
+Note:- Constants:- refer to fixed or predefined values eg:-null
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+5.Grouping with Array Fields:
+{
+    $unwind: "$tags"
+},
+{
+  $group: {
+    _id: "$tags",
+    count: { $sum: 1 }
+  }
+}
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+6.conditional grouping
+{
+  $group: {
+    _id: { $cond: { if: { $gte: ["$price", 100] }, then: "Expensive", else: "Affordable" } },
+    count: { $sum: 1 }
+  }
+}
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+\

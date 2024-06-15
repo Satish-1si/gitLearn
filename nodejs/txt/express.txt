@@ -164,7 +164,7 @@ const server=express()
 ------------------------------------------url to curd oprtions------------------------------------------------------------------------------------
 1./Resource     -->get all objects
 2./Resource
-         /:age-->in particular resource get particular matched objects 
+         /:age  -->in particular resource get particular matched objects 
 3./Resource
           /:age  
               ?name="sai"&score=60 --> particular matched object lo satified these Details in that objects to get

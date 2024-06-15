@@ -1,5 +1,5 @@
-//sorting:- 1.accesing order   :-"age"   
-            2.desending order  :-"-age"
+//sorting:- 1.accesing order   :- "age"   
+            2.desending order  :- "-age"
  
  1.MoviesModel.find().sort("name age")     ==>multiple fields accessing order to sort
  2.MoviesModel.find().sort("name -age")    ==>multiple fields 1.accessing==>name || 2.deseding ==>age
@@ -14,7 +14,9 @@
     3.let GetMoives = await MoviesModel.find().sort(sortQueries);
 
 ======================syntax===========================
-1.query.sort({ field: 'asc', test: -1 });
-1.query.sort('field -test');
-2.query.sort([['field', 'asc']]);
+Note:- dec=== -1
+1.query.sort({ field2: 'asc', field2:"dec",field3:-1 });
+1.query.sort('field2 -field3');
+2.query.sort([['field1', 'asc'], ['field2', 'desc']]);
+
 ===========================================

@@ -36,3 +36,7 @@
 4.filter     ==>Resource ?id[gte]=value&age[lte]=24&score[ge]=3&name=sai
 5.pagenation ==>Resource ?limit=10&page=1
 6.
+
+1.endpoints :-users/get (Developer set)
+2.parameters :- parameters (Developer set)
+3.query parmeters :- client (client Dynamic pass the Details)

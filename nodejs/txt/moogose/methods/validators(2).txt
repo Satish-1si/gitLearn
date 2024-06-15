@@ -1,0 +1,69 @@
+1.DataType     : String 
+  key          : Number 
+  key          : Date 
+  key          : Boolean 
+  key          : [DataType1,DataType2]  ==>array
+  key          : {key: DataType,city: DataType,}
+  image        : Buffer
+  dynamicField : mongoose.Schema.Types.Mixed
+  OtherRefere  : mongoose.Schema.Types.ObjectId
+
+********************************************************************************************
+SCHEMA LEVEL VALIDATION :- 
+1.required   : [true, "Name field is required !!!"] ---> THIS FIELD IS COMPULSORY IN EACH OBJECT
+
+2.unique     : true --> IN EACH OBJECT FIELD KEY IS UNIQUE (if)
+
+3.type       : Specifies the DATA-TYPE of the field. EG:- String, Number, Date, Boolean, etc.
+
+4.default    :intial_Value (else)
+
+5.enum       : developer intially to set the array of Values .only in that values assign from client else it can throw error in moongose
+EG:- role: {type: String,
+            enum: ['admin', 'user', 'moderator']
+            }
+EG:- ROLE :{
+      type: String, 
+      enum:{
+        values: ['admin', 'user', 'moderator']
+        message:"error-msg"
+      }
+    }
+
+6.custom Validation:-
+username: {
+    type: String,
+    validate: {
+       validator: (clientPassvalue)=>{
+                // Check if the username contains only alphanumeric characters
+                const isValid = /^[a-zA-Z0-9]+$/.test(clientPassvalue);
+                return isValid;
+       },
+       message: 'Username must contain only alphanumeric characters'
+    }
+  }
+
+7.match      : Validates the field value against a regular expression pattern.
+8.sparse     : If set to true, allows multiple documents to have the same value for the field if the field is missing or null.
+9.immutable  : Prevents the field from being modified after the document is saved to the database.
+********************************************************************************************
+STRING VALIDATORS 
+1.minlength : 2  OR minlength: [2 ,"Username must be at least 2 characters long"]
+2.maxlength : 50 OR maxlength: [50,"Username must be at least 2 characters long"]
+3.trim      : true  ==> before and after remove the white spaces
+4.lowercase : true  ==> in Db field value stored in lowercase 
+5.uppercase : true  ==>  in Db field value stored in uppercase 
+********************************************************************************************
+NUMBER VADIDATORS
+1.min      : 18  OR [NOvalue,"Msg-String"]
+2.max      : 100 OR [NOvalue,"Msg-String"]
+********************************************************************************************
+DATE VALIDATORS
+
+********************************************************************************************
+custom validators :- 
+
+example:- 
+
+
+

@@ -27,20 +27,19 @@
 1.const movie= await MoviesModel.create(req.body)  ------------>from post
 
 //get :-
-1.get all movies :- 
-let GetMoives=await MoviesModel.find();
+1.get all movies :- let GetMoives=await MoviesModel.find();
 2.get single movie :- using any params 
-let GetAllMoives=await MoviesModel.find({name:req.params.name});
+                               let GetAllMoives=await MoviesModel.find({name:req.params.name});
 3.get single movie :- using params Id
-let GetAllMoives=await MoviesModel.findByID(req.params.id);
+                               let GetAllMoives=await MoviesModel.findByID(req.params.id);
 4.get single movie :- using query key value
-let GetMoives = await MoviesModel.find({name:req.query.name,duration:req.query.duration*1})//get particular movie
+                               let GetMoives = await MoviesModel.find({name:req.query.name,duration:req.query.duration*1})//get particular movie
 5.get single movie :- using query 
-let GetMoives = await MoviesModel.find(req.query)//get particular movie
+                              let GetMoives = await MoviesModel.find(req.query)//get particular movie
 6.get single movie :- using query with moogoose special methods
-let GetMoives = await MoviesModel.find().where("key").equals(req.query.value)
+                              let GetMoives = await MoviesModel.find().where("key").equals(req.query.value)
 7.limit(no_of_Docs_getting)
-let GetMoives =await MoviesModel.find(JSON.parse(Stringify_query)).limit(3) 
+                              let GetMoives =await MoviesModel.find(JSON.parse(Stringify_query)).limit(3) 
 ==================================================================================================
 // update :-
 let Id=req.params.id;

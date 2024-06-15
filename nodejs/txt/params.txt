@@ -28,3 +28,6 @@ Note :- 1.params :- Developer set params keys in server @ url
         2.query  :- Developer cant set keys in server @url 
 
 
+
+
+url ==> domainName/Resouce/route/satish/100

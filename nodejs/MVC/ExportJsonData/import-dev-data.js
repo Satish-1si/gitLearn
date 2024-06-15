@@ -21,7 +21,8 @@ mongoose.connect(connectionStr, { useNewUrlParser: true, useUnifiedTopology: tru
     })
     .catch((error) => {
         console.error("Connection to MongoDB failed:", error.message);
-    });
+});
+
 const DeleteMovies=async()=>{
     try{
             await MoviesModel.deleteMany();

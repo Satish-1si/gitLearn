@@ -1,0 +1,8 @@
+**form send URL-encoded data ==> eg:- username=john_doe&password=password123
+1.URL-encoded data:-
+// Middleware to parse URL-encoded data and add it to req.body
+app.use(express.urlencoded({ extended: true }));//by default extended: false
+==================================================================================
+2.JSON-encoded data:-
+// Middleware to parse JSON data and add it to req.body
+app.use(express.json());

@@ -1,0 +1,23 @@
+* 2 types of Errors occur in nodejs 
+                       ==>operational Errors :- Client Releted Errors
+                       ==>programming Errors :- developer Releated Errors 
+=======================================global middleware ================================================================================================
+1.server.All("*",(req,res,next)=>{
+      const error=new Error(`cant find ${req.originalUrl} on this server`);
+      req.status="fail";
+      req.statusCode=404;
+      next(error) ==>in next function only pass -->error message next middlewares
+                  ==>in next function to pass the any msg :- in express It can be treat as error msg to pass in next middleware....
+ })
+***************************************** global Error Middleware **********************************************************************************************
+*  At any type of Error occur ==>automitically these global Error middleaware can calling in Express 
+2.server.use((error,req,res,next)=>{
+    error.statusCode=error.statusCode ||500
+    error.status=error.status 
+    res.status(error.statusCode).json({
+        status:error.statusCode
+        message:error.status
+    })
+
+ })
+ ***************************************************************************************************************************************

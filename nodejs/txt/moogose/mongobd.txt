@@ -1,0 +1,8 @@
+NODE_ENV=Development 
+PORT=3030
+DB_PASSWORD=ybYGjExXPH4XmYtD
+DB_UserName=satish
+//DB_CONNECTION_URL ="mongodb+srv://<userName>:<password>@HOSTNAME/DATABASE_NAME?retryWrites=true&w=majority&appName=Cluster0";
+  DB_CONNECTION_URL ="mongodb+srv://satish:ybYGjExXPH4XmYtD@cluster0.lr2bcqd.mongodb.net/fullstack?retryWrites=true&w=majority&appName=Cluster0";
+
+LOCAL_CONNECTION_STRING=mongodb://localhost:27017/<DatabaseName/>,

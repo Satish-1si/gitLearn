@@ -1,0 +1,19 @@
+Get :- 
+
+1. http://localhost:3030/ ==>Domain name
+2. api/v1/getUsers  ==>resource 
+
+1.through commandline --> create documents
+2.filtering
+3.sorting
+4.pagination
+5.limting fields
+6.alising a route
+7.reuseable class 
+8.aggreation pipeline 
+9.query,Document,aggretion middleware
+10.data VALIDATORS
+11.virtual proprties
+12.error halding 
+      1.custom 2.global 3.async 4.not found errors 5.invalid erros 6.Duplicate Errors 7.Moongose erros 8.uncaught errors 
+13.DEFAULT rOUTES

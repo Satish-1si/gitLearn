@@ -1,0 +1,61 @@
+# in mongoDb operators ==>  3types 
+1.query operators 
+2.update operators 
+3.Aggretion operators 
+
+==========================1.query operators=============================
+Comparison Operators:
+                   * $eq 
+                   * $ne 
+                   * $gt 
+                   * $gte 
+                   * $lt
+                   * $lte
+                   
+Logical Operators:
+                   * $and 
+                   * $or 
+                   * $not
+                   * $nor
+
+Element Operators:
+                   * $exists
+                   * $type
+
+Array Operators:
+                   * $in 
+                   * $nin 
+                   * $all:
+
+Evaluation Operators:
+                   * $expr 
+                   * $regex
+=========================2.update operators============================
+1.*set  :- Sets the value of a field in a document.
+  * If the field does not exist, $set will create it.
+  * Example: { $set: { "field": value } }
+  syntax:- db.collection.updateOne({ _id: "123" },{ $set: { status: "completed" } })
+
+2.*unset:- Removes the specified field from a document.
+  syntax:- db.collection.updateMany({ city: "New York" },{ $unset: { address: "" } })
+
+3.*inc  :- Increments the value of a numeric field by a specified amount.
+  * If the field does not exist, $inc will create it and set the value to the increment amount.
+  syntax:- db.collection.updateOne( { _id: "456" }, { $inc: { likes: 1 } })
+
+4.*push :- Appends a value in Array like Doc,no,str
+ syntax:-db.collection.updateOne({ _id: "789" },{ $push: { Arrayfieldname: "mongodb" } })
+
+5.*addToSet:- add a value in Array if value is not present 
+ syntax:-db.collection.updateOne({ _id: "101" },{ $addToSet: { participants: "Alice" } })
+
+6.* rename :- update the Fieldname
+  syntax:-db.collection.updateOne({ _id: "202" },{ $rename: { "description": "summary" } })
+
+7.$pop:Removes the first or last element from an array field.
+  Example: { $pop: { "arrayField": 1 } } (removes the last element),
+           { $pop: { "arrayField": -1 } } (removes the first element)
+
+8.$pull:Removes all instances of a specified value from an array field.
+  Example: { $pull: { "arrayField": value } }
+=============================3.Aggretion operators ==================================================

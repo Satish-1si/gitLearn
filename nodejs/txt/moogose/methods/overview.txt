@@ -1,0 +1,191 @@
+schema DataTypes:- 
+
+=============================================================================================================
+0. 2 types of Documents
+                     1.Document             :- {name:"satish"}
+                     2.conditional Document :- {name:{$ne:"satish"}}
+=============================================================================================================
+1.get :-                                      
+   1.find(NoArg)                      -->get all docs                    
+   2.find(Document)                   -->get matched key,values Docs                
+   3.find(Document,'name age')        -->1. get matched key,values Docs , 2. get access the some Keys   
+   4.findById(StrID)                  -->get matches Id Docs               
+   5.findById(StrID,'field1 -field2') -->1. get matched Id Docs , 2. get access the some Keys 3. (-sign) means:-exclude the field 
+   Note:- 
+   1.array valiDation:- {"predators.0":{$eq:"lion"}}
+   2.Object valiDation:-{"animals.name":{$eq:"lion"}}
+=============================================================================================================
+2.update :-                                        
+   1. updateOne(oldDocument, UpdatedDocument);      -->update oldDoc matched values  (one)  
+   2. updateMany(oldDocument, UpdatedDocument);     -->update oldDoc matched values  (one||multiple)  
+   3. findByIdAndUpdate(Id,NewObj,permissionObject);-->update  matched ID Doc values  (one||multiple) 
+  
+   #update Operators How to use :- 
+    * updateOne({ score: 300 },{ $set: { status: "completed" }}); 
+    * Note:- new object:- { status: "completed" } to set
+   
+=============================================================================================================
+3.Delete :-                             
+   1.deleteOne(Document)                       
+   2.deleteMany()||deleteMany({field1: value1})||deleteMany({field1:{$gte:value1}})
+   3.findByIdAndDelete(Id)
+   Note:- chain methods not applicable in delete operation
+=============================================================================================================
+4.create :-      
+   1.create({})      -->create one Docs
+   2.create([{},{}]) -->create multiple Docs
+=============================================================================================================
+5.Array method :- 
+   1.slice('arrayFieldName', [startIndex, endIndex]); ==>array of Documents
+   eg:-Model.find({}).slice('comments', [0, 3]) ==>Retrieve the first 3 comments of array
+=============================================================================================================
+6.where ==> select the keys ==> apply the condition 
+ eg:- where("selected key")
+==============================================================================================================
+7.reational operators :-eq,ne,gt,gte,lt,lte,in,nin
+ 1way:-
+   * where("key").equals(value)
+   * where("key").gte(value)
+   * where("key").lte(value)
+   * where("key").ge(value)
+   * where("key").le(value)
+ 2way:- 
+   * {field1:{$operator:value},field2:{$operator:value},etc...}
+=============================================================================================================
+8.logical operators:- and,or,not
+ 1.and :- Model.find({ $and: [{ field1: value1 }, { field2: value2 }] });
+ 2.or  :- Model.find({ $or : [{ field1: value1 }, { field2: value2 }] });
+============================================================================================================
+9.Math Operators :- add, subtract, multiply, divide, pow, sqrt, abs
+ syntx:-{"$operator": [value_1, value_2,value3,etc ...]}
+       {"$operator": [$field-1,$field-2,$field-3,etc ...]}
+=============================================================================================================
+9.pagination opertors 
+  * limit (no)
+  * skip (no)
+=============================================================================================================
+10.total length
+  * countDocuments() ==>return total Documents length 
+==============================================================================================================
+11.sort 
+   1.query.sort({ field2: 'asc', field2:"dec",field3:-1 }); //{key1:"asc"} -->object
+   2.query.sort('field2 -field3');//key1 -key2 -->string
+   3.query.sort([['field1', 'asc'], ['field2', 'desc']]);//[["key1","asc"]] -->nested array
+==============================================================================================================
+12.select the particular_key ,particular_values 
+   1.query.select('a b');
+   2.query.select({ a: 1, b: 1 });
+   3.query.select('-c -d'); //in selct means :- - sign ==>exclude the fields
+   
+   Note:-simillar fun :-find(Document,'name age')
+==============================================================================================================
+13.Agregate stages:- 1.to filter the stage by stage
+
+ syntax:- db.collection.aggregate([ {stage1}, {stage2}, {stage3}...])
+         db.collection.aggregate([{$stagename:Document}])
+         Note:- 2 types of Documents
+         1.Document             :- {name:"satish"}
+         2.conditional Document :- {name:{$ne:"satish"}}
+1.Types of Aggregate stages:- in aggretion stages to group the unique fields values  based on fieldnames,fieldConditions
+ 
+ # $group  : Groups documents by a specific field value and performs aggregate functions on the grouped data.
+ 
+ # $match  : Filters documents based on specified conditions.
+ 
+ # $project: control the output documents i.e :- including/excluding fields (projection). EG:- {$project:{field1:1,field2:1}}
+   Note:- * 1 -->visible the Field  || * 0 -->hide the Field
+ 
+ # $sort   : Sorts the documents based on specified fields.
+   Note:- ==> 1: ascending sort order. ==>-1: descending sort order. EG:-{"$sort": {  "age": 1}}
+ 
+ # $limit  : Limits the number of documents in the output. Eg:-{ $limit: limitValue } 
+ 
+ # $count:- count the previous Documents Eg:-$count :"$anyname"
+ 
+ # $wind :- "Destructure the array into individual documents, each Doc containing one Arrayelement And also along include original document other fields ."
+  Doc:-{name:"sai",arr:[1,2]}
+  ==>{$wind:{path:"$arr"}} -->output:- [{name:"sai",arr:1} ,{name:"sai",arr:1}]
+==============================================================================================================
+
+*.Advance sorting filter tip:- 
+  1.example:-http://localhost:3356/api/v1/movies?sort=duration,ratings,totalRating
+  2.let sortQueries=(query.sort.replace(/,/g,(matchArgument)=>`$matchArgument "`)); ===> "duration ratings totalRating"
+  3.let query=JSON.stringify(req.query) ===> 'duration,ratings,totalRating'
+
+  1.example:-http://localhost:3356/api/v1/Resource?id[gte]=value&age[lte]=24&score[ge]=3&name=sai
+  2.let query=JSON.stringify(req.query) ===> 'duration,ratings,totalRating'
+  3.let sortQueries=(query.sort.replace(/gte|lte|gt|lt|ne/g,(matchArgument)=>`$$matchArgument`)); ===>{id:{$gte:value},age:{$lte:24},score:{$ge:3},name:sai}
+==============================================================================================================
+* Route Aliasing technique:- by using middleware Developer automtically to pass the client send Data in controller 2.but client enter only simple endPoint. not provide all these details
+ eg:-  1.normal process     :- DomaninName/movies?sort="-cost"&limit=5  -->Router.route("/movies").get(controllers.GetAllMovies)
+       2.Aliasing technique :- DomaninName/hightestRatedMovies          -->Router.route("/hightestRatedMovies").get((req,res,next)=>{req.sort="-cost";
+                                                                                                                                     req.limit=5;
+                                                                                                                                    }
+==============================================================================================================                                                                                                                             },controllers.GetAllMovies)
+1.Sorting   :- in sorting same Data is     return . but order will be change based on your condition..
+ 2.Filtering :- in filter  some Data will be remove||or not remove .based on your condition..
+ example:- 
+ * Filtering: If you filter for numbers greater than 30, you'll end up with [40, 50].
+ * Sorting: If you sort the list in ascending order, you'll get [10, 20, 30, 40, 50].
+================================================================================================================
+1.code Resueblity :- 
+class ApiFeatures{
+     constructor(query,clientSendObject){
+           //instance varibles -->access in all instance Areas
+            this.query=query;
+            this.clientData=clientSendObject;
+     }
+     sort(){
+       console.log(this.query)
+       console.log(this.clientData)
+       -------->your code implementation<---------
+     }
+     filter(){} //instance method (simillar)
+     limit(){}  //instance method
+     count(){}  //instance method
+     select(){}  //instance method
+     pagenation(){}  //instance method
+}
+export GetAllMovies=async(req,res)=>{
+   try{
+     1.let query =Mongoose_Model.find()
+     2.let clientData=req.query
+     let obj=new ApiFeatures(query,clientData).sort().filter().limit().count().select().pagination()
+     let Data=await obj.query -->result
+   }
+   catch(error){
+
+   }
+}
+================================================================================================================
+1.virtual properties :- to create virtual properties in Mongoose by using existing database single doc data 
+                         without modifying the actual document structure stored in the database.
+
+example:- 
+const mongoose = require('mongoose');
+
+// Define a schema
+const userSchema = new mongoose.Schema({firstName: String,lastName: String,});
+
+// Define a virtual property for the full name
+userSchema.virtual('fullName').get(function() {
+                    return `${this.firstName} ${this.lastName}`;
+});
+
+// Create a model based on the schema
+const User = mongoose.model('collection', userSchema);
+
+// Retrieve a user document from the database
+collection.findOne({ /* Your query criteria */ }, (err, user) => {
+  if (err) {
+    console.error('Error:', err);
+    return;
+  }
+
+// Access the virtual property
+console.log(user.fullName); // Output: Full name based on firstName and lastName fields
+});
+
+Note :- automatically It can the virtual data 
+        Virtual properties not used in Mongo methods
+================================================================================================================

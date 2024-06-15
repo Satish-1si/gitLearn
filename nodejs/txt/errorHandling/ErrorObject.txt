@@ -1,0 +1,53 @@
+1.const error = new Error('Something went wrong');
+console.log(error.message); // Outputs: Something went wrong
+**************************************************************
+2.const error = new Error('Something went wrong');
+error.name = 'CustomError';
+console.log(error.name); // Outputs: CustomError
+**************************************************************
+3.const error = new Error('Something went wrong');
+console.log(error.stack); // through the complete error Details 
+
+* output eg:- 
+ Error: Something went wrong
+    at Object.<anonymous> (/path/to/your/file.js:3:15)
+    at Module._compile (internal/modules/cjs/loader.js:1076:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1097:10)
+    at Module.load (internal/modules/cjs/loader.js:941:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:782:14)
+    at Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:72:12)
+    at internal/main/run_main_module.js:17:47
+
+* Note:- 
+  Error: The error message 'Something went wrong'.
+  Stack Trace: Lists the sequence of function calls leading to the error.
+  File and Line Number: /path/to/your/file.js:3:15 indicates the error occurred on line 3, column 15 of the specified file.
+  This stack trace helps you identify the exact location in your code where the error was thrown.
+==============================================================================================================
+property:- 
+  1.message 
+  2.stack 
+  3.customKey
+
+1.error:-  An error is a predefined object in JavaScript. It is an instance of the Error class or its subclasses (e.g., TypeError, SyntaxError, etc.).
+eg:- try {
+      throw new Error("Something went wrong!"); // Predefined Error object
+    } 
+    catch (err) {
+      console.log(err.message); // Output: Something went wrong!
+   }
+
+2.expection :-Developer-thrown Forcefully
+eg:-function validateAge(age) {
+      if (age < 18) throw "Age must be 18 or older"; // Exception thrown forcefully
+      return "Age is valid";
+   }
+   try {
+     validateAge(16);
+  } catch (exception) {
+    console.log(exception); // Output: Age must be 18 or older
+  }
+--------------------------------------------------------------------------------------------
+Note:- 1.expection ==> throw  "msg"
+       2.error  ==>throw new Error("msg")
+--------------------------------------------------------------------------------------------

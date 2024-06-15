@@ -3,3 +3,22 @@
 
 //deleteMany:-
 1.const MultipleDeleteMovies=await MoviesModel.deleteMany();
+==================operations=========================================
+// Delete a single document where the "name" field is "John"
+Model.deleteOne({ name: 'John' }).exec();
+
+// Delete all documents where the "status" field is "inactive"
+Model.deleteMany({ status: 'inactive' }).exec();
+
+// Find and delete a single document where the "name" field is "John", and return the deleted document
+Model.findOneAndDelete({ name: 'John' }).exec();
+
+// Find and delete a document by its ID, and return the deleted document
+Model.findByIdAndDelete('document_id').exec();
+
+
+
+Developed a comprehensive dashboard for viewing web applications and tracking order statuses for PepsiCo, Inc., including responsibilities and achievements.
+
+Description:
+Developed an Order Management system for tracking all PepsiCo orders, whether successful or failed. Key responsibilities and achievements

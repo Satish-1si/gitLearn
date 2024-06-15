@@ -13,3 +13,10 @@ c==> handler methods
    
    Note:- server ==>.dotenv + moogose connection
 =================================================================================================
+
+
+server ==> port listen 
+
+m==> model ---> MongoDb Model 
+v==> 
+c ==> controller --> 

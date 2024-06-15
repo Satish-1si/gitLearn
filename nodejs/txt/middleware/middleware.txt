@@ -6,18 +6,19 @@ const middleware=(req,res,next)=>{
 }
 ===============================================================================================
 1.indiviualRoute ==> ki ==>apply middleware
-   app.get(routePath   ,(req, res, next) {})
-   app.post(routepath  ,(req, res, next) {})
-   app.put(routepath   ,(req, res, next) {})
-   app.patch(routepath ,(req, res, next) {})
-   app.delete(routepath,(req, res, next) {})
+   app.get(routePath   ,(req, res, next) {},(req, res, next) {},(req, res, next) {})
+   app.post(routepath  ,(req, res, next) {},etc...)
+   app.put(routepath   ,(req, res, next) {},etc...)
+   app.patch(routepath ,(req, res, next) {},etc...)
+   app.delete(routepath,(req, res, next) {},etc...)
 ===============================================================================================
 2. at a time  apply AllRoutes ==>middleware
    app.use(routepath,(req, res, next) {})  
    app.use("*"      ,(req, res, next) {})
+   app.use((req, res, next) {})
    app.All(routepath,(req, res, next) {})
 ================================================================================================
-3.at a time apply multiple middleware in ==> single middleware 
+3.at a time apply multiple middleware in ==> single resoursePath 
    app.get(routepath,middleware1,middleware2,middleware3)
    app.use(routepath,middleware1,middleware2,middleware3)
 ================================================================================================
@@ -114,4 +115,134 @@ app.get("/", (req, res) => {
 const port = 3000;
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
+});
+==========================================================
+type of middlewares :- 
+* Route less Middleware || Application-level middleware || global Middleware
+* Route Middleware
+* Error Handling Middleware
+* Third-party Middleware :- 
+                1. Express.js Middleware
+                2. Body-parser
+                3. Morgan
+                4. Cors
+                5. Compression
+                6. Multer
+                7. Passport,js
+                8. Express-validator
+                9. Cookie-parser
+               10. Express-session
+//resoures endpoints Resueblity 
+* Router -->1.server  provide Route
+            2.express provide Route ==>advantage --> Middleware apply here(possiblty)//endpoints more reuseable
+* Param Middleware
+* Static Middleware
+***************************************************************************
+1. Route-less Middleware:-
+const express = require("express");
+const app = express();
+
+// Route-less middleware function
+const routelessMiddleware = (req, res, next) => {
+    console.log("This is a route-less middleware");
+    next();
+};
+
+// Applying route-less middleware at the application level
+app.use(routelessMiddleware);
+
+// Define your routes below
+app.get("/", (req, res) => {
+    res.send("Hello World!");
+});
+
+// Start the server
+const port = 3000;
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
+});
+***************************************************************************
+2.Route middleware :- 
+const express = require("express");
+const app = express();
+
+// Route middleware function
+const routeMiddleware = (req, res, next) => {
+    console.log("This is a route middleware for /user route");
+    next();
+};
+
+// Applying route middleware to a specific route
+app.get("/user", routeMiddleware, (req, res) => {
+    res.send("User Information");
+});
+
+// Start the server
+const port = 3000;
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
+});
+*****************************************************************************
+Note:- next() method ==> calls the next middleware && 
+       next(error)  ===> only pass the error msgs from next middlewares
+------------------------------------------------------------------------------
+3.Error middleware 
+const express = require('express');
+const app = express();
+
+// Route handler that throws an error
+app.get('/error', (req, res, next) => {
+    // Simulate an error
+    const err = new Error('Intentional Error');
+    err.status = 404;
+    next(err); // Pass the error to the next middleware
+});
+
+// Custom error handling middleware
+app.use((err, req, res, next) => {
+    // Customize error response based on status code
+    if (err.status === 404) {
+        res.status(404).send('Not Found');
+    } else {
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+// Start the server
+const port = 3000;
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
+});
+*************************************************************************
+4.Router Middleware
+const express = require('express');
+const app = express();
+
+// Middleware function
+const logMiddleware = (req, res, next) => {
+    console.log('Incoming request:', req.url);
+    next(); // Pass control to the next middleware function
+};
+
+// Router middleware
+const router = express.Router();
+
+// Applying middleware to the router
+router.use(logMiddleware);
+
+// Define routes
+router.get('/', (req, res) => {
+    res.send('Hello World!');
+});
+
+router.get('/about', (req, res) => {
+    res.send('About Us');
+});
+
+// Mount the router at a specific path
+app.use('/api', router);
+
+// Start the server
+app.listen(3000, () => {
+    console.log('Server is running on port 3000');
 });

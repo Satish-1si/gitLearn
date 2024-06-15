@@ -1,0 +1,12 @@
+fieldName:{type:DataTypeName,required:true}
+//set the DataType
+1.type:DataTypeName
+
+//if the field is required 
+2.required:[true,"errorMsg"]
+
+//set the intial value of paticular field
+3.Default:IntialValue
+
+//if the field name can unique 
+4.unique:true

@@ -1,0 +1,20 @@
+1.let matched_Id=req.params.id;
+2.let new_Document=req.body;
+3.let ReturnCreateObject={ new:true,runValidators:true}
+Note:-runValidators:-validators return proper msg
+
+//update syntax ==> matched_Id All Documents
+1.findByIdAndUpdate(match_Id,new_Document,ReturnCreateObject)  
+
+=====================opertaions========================================
+// Update a single document where the "name" field is "John"
+Model.updateOne({ name: 'John' }, { age: 30 }).exec();
+
+// Update multiple documents where the "status" field is "pending"
+Model.updateMany({ status: 'pending' }, { $set: { status: 'completed' } }).exec();
+
+// Update a document by its ID
+Model.updateById(id, { name: 'NewName' }).exec();
+
+// Update a document and return the updated document
+Model.findByIdAndUpdate(id, { $inc: { visits: 1 } }, { new: true }).exec();

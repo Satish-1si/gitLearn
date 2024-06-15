@@ -1,0 +1,35 @@
+* Route Aliasing Middleware:- 
+
+1.by using middleware Developer automtically to pass the client send Data in controller 
+2.but client enter only simple endPoint. not provide all these details
+ eg:-  1.normal process     :- DomaninName/movies?sort="-cost"&limit=5  
+       output==>Router.route("/movies").get(controllers.GetAllMovies)
+
+       2.Aliasing technique :- DomaninName/hightestRatedMovies   
+        output==>Router.route("/hightestRatedMovies").get((req,res,next)=>{req.sort="-cost";req.limit=5;})
+===========================================in moongose four type of middleware ================
+* Document Middleware 
+               :- by using  pre() method:-in create Document before saved in Database this method will excute
+                                                    ==>this keyword -->will point to current Document
+                                                    ==> we can added the data in created Json object|| 
+                                                    ==> or console the created Json object
+                                                    ==> syntax:- model.pre("save",function(next){this.createBy="sai"})
+      
+               :- by using post(doc,next) method :-in create Document after saved in Database this method will excute 
+                                                    ==> we can added the data in created Json object|| 
+                                                    ==> or console the created Json object
+                                                    ==> syntax:- model.post("save",function(save-model_Doc,next){})
+         
+              
+
+* query Middleware :-
+                 1.pre:- this Keyword will point to the-->current calling query object    
+                 model.pre(/^find/,function(next){this.createBy="sai"})
+                 2.post:-
+                 model.post(/^find/,function(save-All_Doc,next){this.createBy="sai"})
+
+                                                      
+* Model Middleware :-
+* Aggregate Middleware:-
+
+

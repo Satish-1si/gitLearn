@@ -1,0 +1,69 @@
+13.
+1.Agregate stages:- to filter the stage by stage
+ syntax:- db.collection.aggregate([ {$stagename1:Document}, ==>Output:- 10 
+                                    {$stagename2:Document}, ==>Output:- 9
+                                    {$stagename3:Document}, ==>Output:- 2
+                                 ...])
+output :- stage3<=stage2<=stage1.
+-----------------------------------------------------------------------------------------------------------------------
+2.Types of Aggretion Stages:- 
+# $group  : Groups documents by a specific field value and performs aggregate functions on the grouped data.
+# $match  : Filters documents based on specified conditions.
+# $project: control the output documents i.e :- including/excluding fields (projection). EG:- {$project:{field1:1,field2:1}}
+  Note:- * 1 -->visible the Field 
+         * 0 -->hide the Field
+# $sort   : Sorts the documents based on specified fields.
+   ==> 1: ascending sort order. ==>-1: descending sort order. EG:-{"$sort": {  "age": 1}}
+# $limit  : Limits the number of documents in the output. Eg:-{ $limit: limitValue } 
+# $count:- count the previous Documents Eg:-$count :"$anyname"
+
+Note:- in mongoDb 2 types of Documents :-
+         1.Document :- {name:"satish"}
+         2.conditional Document :- {name:{$ne:"satish"}}
+-----------------------------------------------------------------------------------------------------------------------
+3. 1.only group Aggretion stages we can use ==> Some accumution methods
+   2.accumution methods ==>apply on Documents 
+   3.group of Docs -->to perfrom accumution methods
+
+# $sum	    -> Calculates the sum of the values in a group 
+# $avg	    -> Calculates the average of the values in a group
+# $min	    -> Gets the minimum value in a group
+# $max	    -> Gets the maximum value in a group
+# $first    -> Gets the first value in a group
+# $last	    -> Gets the last value in a group
+# $push	    -> Appends the value to an array
+# $addToSet -> Adds the value to a set
+
+Note:- 
+   1.accumution operators :- work on group of Docs :- $sum,$avg,....
+   2.Uninary Operators    :- work on single Docs :- $gt,Slt,gte,$type...
+   Note:- eg:- {$group: { _id: null, count:{$avg:{$add:["$height","$age"]}}}}
+     *$group ==>aggregation stage 
+     *count  ==>optinal accumtor varible 
+     *avg    ==>accumulator -->group of Docs opertions
+     *add    ==>uninary -->one Doc opertions
+
+1.example:- 
+ db.sales.aggregate([
+   {
+    $group: {
+      _id: "$product",
+      totalQuantity:  { $sum: "$quantity" },// Calculate total quantity :- 1.fieldName=>quantity
+      averagePrice :  { $avg: "$price" },  // Calculate average price  :- 1.fieldName=>price
+      minPrice     :  { $min: "$price" }, // Find minimum price       :- 1.fieldName=>price
+      maxPrice     :  { $max: "$price" } // Find maximum price       :- 1.fieldName=>price
+      totalRevenue :  { $add: ["$field1","$field2"] }  // ==>accumution method apply --> in multile fields
+     }
+   }
+])
+
+# process :- 
+1.first  group the unique fields names  Docs
+2.in that unique fields names  Docs to apply acumulaor functions.
+
+Note:-
+1. key :- { $add: "$field" }, ==> add the field1 Details
+2. key :- { $add: ["$field1","$field2"] } ==>add the field1 ,field2 common Details
+-----------------------------------------------------------------------------------------------------------------------
+
+

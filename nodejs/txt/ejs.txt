@@ -1,0 +1,29 @@
+* to write the js code It can embed into ==> <% JSCODE %>
+* by using these tags ==> inserting JavaScript code that doesn't produce any output.
+1.exmaple:-
+<html>
+     <% if (user.isAdmin) { %>  ---->js
+        <p>Welcome, Admin!</p>  ---->html
+     <% } else { %>             ---->js
+        <p>Welcome, User!</p>   ---->html
+     <% } %>//js                ---->js
+</html>
+
+2.in html to generate any js code output ==> <% JSCODE_OUTPUTS =%>
+
+<ul>
+  <% for (let i = 0; i < 5; i++) { %> ==>insert the js code --> eg:- <% jscode %>
+    <li>Item <%= i + 1 %></li>        ==>prit the js code results in html --> eg:- <% outputjscode =%>
+  <% } %>
+</ul>
+
+Note :- both tags to show the output in clientside but it can be used as different purposes
+  0.<%  JSCODE %>  ==>only insert the js code
+  1.<%- JSCODE %>  ==>print the js output ==>in js code HTML tags or special characters in the variable will be treated as HTML and its rendered ....
+  2.<%  JSCODE =%> ==>print the js output ==>It means that any HTML tags or special characters in the variable will be escaped and displayed as plain text
+  3.<%# comment %> ==>print the comments  
+
+//send the nodejs Data in object format only 
+                           ==> res.render('templateName',{name:"sai"});-->correct
+                           ==> res.render('templateName',{Read:[]});-->correct
+                           ==> res.render('templateName',100); -->wrong
